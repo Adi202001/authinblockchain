@@ -12,7 +12,7 @@
 	<artifactId>authen</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>authen</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Authentication System Using Blockchain</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -26,8 +26,9 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
+    		<groupId>mysql</groupId>
+    		<artifactId>mysql-connector-java</artifactId>
+    		<version>8.0.27</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,6 +1,12 @@
 package com.example.authen.authentication;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.nio.charset.StandardCharsets;
 
 public class User {
@@ -17,11 +23,10 @@ public class User {
     }
 
     private String generateSalt() {
-        // Implement a secure method to generate a random salt
-        // For example, using a cryptographic library like Java's SecureRandom
-        // This is a simplified example for educational purposes
-        // Do not use this in a real system!
-        return "random_salt";
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] saltBytes = new byte[16]; // 128 bits
+        secureRandom.nextBytes(saltBytes);
+        return Base64.getEncoder().encodeToString(saltBytes);
     }
 
     private String hashPassword(String password, String salt) {
@@ -45,13 +50,19 @@ public class User {
     }
 
     private String generatePublicKey() {
-        // Implement a method to generate a public key for blockchain interactions
-        // This typically involves asymmetric key pair generation
-        // Using a library like Java's KeyPairGenerator
-        // This is a simplified example for educational purposes
-        // Do not use this in a real system!
-        return "public_key";
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(2048); // Adjust the key size as needed
+            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+            PublicKey publicKey = keyPair.getPublic();
+
+            // Encode the public key as a Base64 string
+            return Base64.getEncoder().encodeToString(publicKey.getEncoded());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error generating public key", e);
+        }
     }
+
 
     // Getters for user information
     public String getUsername() {
